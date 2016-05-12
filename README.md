@@ -14,18 +14,29 @@ DaoCloud+ 项目是一个 [DaoCloud](https://daocloud.io) 迷你控制台托盘�
 
 ## 如何编译
 
-1、克隆到本地
+### 克隆到本地
 ```
 $ git clone https://github.com/lijy91/daocloud-plus.git
 $ cd daocloud-plus
 ```
 
-2、安装依赖库
+### 安装依赖库
 ```
 $ npm install
 ```
 
-3、运行
+### 创建 `.env` 文件
+```
+$ cp .env.example .env
+```
+
+修改根目录 `.env` 配置，修改云巴相关配置
+```
+YUNBA_APP_KEY=<Your AppKey>
+YUNBA_SECRET_KEY=<Your Secret Key>
+```
+
+### 运行
 ```
 $ npm start
 ```

@@ -15,6 +15,7 @@
  */
 
 import env from './env';
+require('dotenv').config();
 const version = require('./package.json').version;
 const electron = require('electron');
 const app = electron.app;
@@ -28,7 +29,7 @@ const VueResource = require('vue-resource');
 const moment = require('moment');
 const uuid = require('uuid');
 const replaceall = require("replaceall");
-const yunba = new Yunba({'appkey': '<Your Appkey>'});
+const yunba = new Yunba({'appkey': process.env.YUNBA_APP_KEY});
 
 Vue.use(VueResource);
 
