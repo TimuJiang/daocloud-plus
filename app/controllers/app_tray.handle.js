@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+"use strict";
 
-import env from './env';
+// import env from '../env';
 require('dotenv').config();
-const version = require('./package.json').version;
+const env = require('../../package.json').version;
+const version = require('../../package.json').env;
 const electron = require('electron');
 const app = electron.app;
 const shell = electron.shell;
@@ -30,6 +32,8 @@ const moment = require('moment');
 const uuid = require('uuid');
 const replaceall = require("replaceall");
 const yunba = new Yunba({'appkey': process.env.YUNBA_APP_KEY});
+
+console.log('Loaded environment variables:', env);
 
 Vue.use(VueResource);
 
@@ -119,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 winPref = null;
               });
 
-              win.loadURL('file://' + __dirname + '/components/preferences/preferences.html');
+              win.loadURL('file://' + __dirname + '/../views/preferences.html');
               win.show();
 
               winPref = win;
