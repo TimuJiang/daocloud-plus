@@ -18,9 +18,9 @@
 const path = require('path');
 const {app, ipcMain} = require('electron');
 
-const AppTray = require('./controllers/app_tray');
-const LoginWindow = require('./controllers/login');
-const PreferencesWindow = require('./controllers/preferences');
+const AppTray = require('./scripts/app_tray');
+const LoginWindow = require('./scripts/login');
+const PreferencesWindow = require('./scripts/preferences');
 
 class DaoCloudPlus {
 
