@@ -1,33 +1,19 @@
 {
   "name": "daocloud-plus",
-  "productName": "DaoCloud+",
-  "description": "Starter for your Electron application. Out of the box ready for serious stuff.",
-  "version": "0.1.1",
-  "author": "JianyingLi <lijy91@foxmail.com>",
-  "copyright": "© 2016, JianyingLi",
-  "main": "background.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "electron.js",
   "dependencies": {
-    "auto-launch": "^2.0.1",
-    "fs-jetpack": "^0.9.0",
-    "jquery": "^2.2.0",
-    "menubar": "^4.1.1",
-    "moment": "^2.11.2",
-    "replaceall": "^0.1.6",
-    "semantic-ui-css": "^2.1.8",
-    "uuid": "^2.0.2",
-    "vue": "^1.0.16",
-    "vue-i18n": "^4.0.0",
-    "vue-resource": "^0.7.0"
+    "menubar": "^5.1.0",
+    "moment": "^2.14.1",
+    "vue": "^1.0.24",
+    "vue-electron": "^1.0.0",
+    "vue-i18n": "^4.1.0",
+    "vue-resource": "^0.7.0",
+    "vue-router": "^0.7.13",
+    "vuex": "^0.6.3"
   },
-  "packageNameTemplate": "{{name}}-v{{version}}-{{platform}}-{{arch}}",
-  "osx": {
-    "build": "1",
-    "identifier": "org.blankapp.daocloudplus",
-    "LSApplicationCategoryType": "public.app-category.productivity",
-    "//codeSignIdentitiy": {
-      "dmg": "Developer ID Application: Company Name (APPIDENTITY)",
-      "MAS": "3rd Party Mac Developer Application: Company Name (APPIDENTITY)",
-      "MASInstaller": "3rd Party Mac Developer Installer: Company Name (APPIDENTITY)"
-    }
-  }
+  "devDependencies": {},
+  "author": "JianyingLi <lijy91@foxmail.com>",
+  "license": "ISC"
 }
