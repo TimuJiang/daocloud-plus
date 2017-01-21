@@ -62,7 +62,7 @@ let config = {
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './app/main.ejs',
+      template: './app/index.ejs',
       title: settings.name
     }),
     new webpack.NoErrorsPlugin()
@@ -84,9 +84,6 @@ let config = {
   },
   target: 'electron-renderer',
   vue: {
-    autoprefixer: {
-      browsers: ['last 2 Chrome versions']
-    },
     loaders: {
       sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
       scss: 'vue-style-loader!css-loader!sass-loader'

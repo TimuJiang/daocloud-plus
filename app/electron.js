@@ -1,9 +1,11 @@
 'use strict'
 
+require('dotenv').config();
 const electron = require('electron')
 const path = require('path')
-const app = electron.app
+// const app = electron.app
 const BrowserWindow = electron.BrowserWindow
+const menubar = require('menubar')
 
 let mainWindow
 let config = {}
@@ -16,13 +18,28 @@ if (process.env.NODE_ENV === 'development') {
   config.url = `file://${__dirname}/dist/index.html`
 }
 
+const app = menubar({
+  index: config.url + '/#/tray',
+  width: 400,
+  height: 300,
+  preloadWindow: true,
+  hasShadow: false,
+  transparent: true,
+  webPreferences: {
+    webSecurity: false
+  }
+});
+
 function createWindow () {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
     height: 600,
-    width: 800
+    width: 800,
+    webPreferences: {
+      webSecurity: false
+    }
   })
 
   mainWindow.loadURL(config.url)
@@ -44,7 +61,9 @@ function createWindow () {
   console.log('mainWindow opened')
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

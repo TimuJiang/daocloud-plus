@@ -1,24 +1,27 @@
-import Vue from 'vue'
-import Electron from 'vue-electron'
-import Resource from 'vue-resource'
-import Router from 'vue-router'
+import Vue from 'vue';
+import VueElectron from 'vue-electron';
 
-import App from './App'
-import routes from './routes'
+import { sync } from 'vuex-router-sync';
+import router from './router';
+import store from './store';
 
-Vue.use(Electron)
-Vue.use(Resource)
-Vue.use(Router)
-Vue.config.debug = true
+import 'semantic-ui-css/semantic.min.css';
 
-const router = new Router()
+import App from './App';
 
-router.map(routes)
-router.beforeEach(() => {
-  window.scrollTo(0, 0)
-})
-router.redirect({
-  '*': '/'
-})
+Vue.use(VueElectron);
 
-router.start(App, 'app')
+require('./filters');
+
+Vue.config.debug = true;
+
+// sync the router with the vuex store.
+// this registers `store.state.route`
+sync(store, router);
+
+new Vue({
+  router,
+  store,
+  render: h => h(App),
+}).$mount('#app');
+// Now the app has started!
