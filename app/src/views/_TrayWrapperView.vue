@@ -9,7 +9,7 @@
           <h4 class="title" style="cursor:default;">DaoCloud+</h4>
         </div>
         <div class="left floated right aligned column">
-          <a v-if="need_update" class="js-external-link" href="https://github.com/lijy91/daocloud-plus/blob/master/CHANGELOGS.md"><i class="star icon"></i>新版本</a>
+          <a v-if="hasNewVersion" class="js-external-link has-new-version" href="https://github.com/lijy91/daocloud-plus/blob/master/CHANGELOGS.md"><i class="star icon"></i>新版本</a>
         </div>
       </div>
     </header>
@@ -27,7 +27,7 @@
         <div class="column">
         </div>
         <div class="left floated right aligned column">
-          <a><i class="large setting icon"></i></a>
+          <a v-on:click="preferences"><i class="large setting icon"></i></a>
         </div>
       </div>
     </footer>
@@ -35,8 +35,78 @@
 </template>
 
 <script>
+import electron from 'electron';
+
+const JSON = global.JSON;
+const version = require('../../package.json').version;
+// const app = electron.app;
+const shell = electron.shell;
+const remote = electron.remote;
+const BrowserWindow = remote.BrowserWindow;
+const Menu = remote.Menu;
+// const MenuItem = remote.MenuItem;
+
 export default {
   components: {
+  },
+  data() {
+    return {
+      hasNewVersion: false,
+    };
+  },
+  methods: {
+    checkNewVersion() {
+      this.$http.get('https://raw.githubusercontent.com/lijy91/daocloud-plus/master/app/package.json').then(response => {
+        const data = JSON.parse(response.data);
+        if (data.version > version) {
+          this.hasNewVersion = true;
+        }
+      });
+    },
+    preferences() {
+      // 首选项
+      // 意见反馈
+      // --------
+      // 退出
+      const template = [
+        {
+          label: '首选项',
+          click() {
+            const window = new BrowserWindow({
+              width: 520,
+              height: 360,
+              show: false,
+              resizable: false,
+              alwaysOnTop: true,
+            });
+            window.loadURL('/#/preferences');
+            window.show();
+
+            window.webContents.openDevTools();
+          },
+        },
+        {
+          label: '意见反馈',
+          click: () => {
+            shell.openExternal('https://github.com/lijy91/daocloud-plus/issues/new');
+          },
+        },
+        {
+          type: 'separator',
+        },
+        {
+          label: '退出',
+          accelerator: 'CmdOrCtrl+W',
+          role: 'close',
+        },
+      ];
+
+      const menu = Menu.buildFromTemplate(template);
+      menu.popup(remote.getCurrentWindow());
+    },
+  },
+  mounted() {
+    this.checkNewVersion();
   },
 };
 </script>
@@ -125,5 +195,8 @@ header a:hover, footer a:hover {
   max-height: 200px;
   margin-right: -9px;
   padding-right: 9px;
+}
+.has-new-version {
+  color: #ed5565;
 }
 </style>

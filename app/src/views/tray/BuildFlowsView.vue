@@ -1,17 +1,19 @@
 <template>
-  <div class="ui relaxed divided list">
-    <div class="ui active inverted dimmer" v-if="lists === null || lists.length === 0">
-      <div class="ui medium text loader"></div>
-    </div>
-    <div class="item" v-for="item in lists">
-      <div class="right floated">
-        {{ item.created_at | moment }}
+  <div>
+    <div class="ui relaxed divided list">
+      <div class="ui active inverted dimmer" v-if="lists === null || lists.length === 0">
+        <div class="ui medium text loader"></div>
       </div>
-      <i class="big middle aligned icon" v-bind:class="item.src_provider"></i>
-      <div class="content">
-        <a class="header js-external-link" :href="`https://dashboard.daocloud.io/build-flows/${item.id}`">{{item.name}}</a>
-        <div class="description">
-           <label class="status" v-bind:class="item.status">{{$t(`buildStatus.${item.status}`)}}</label>
+      <div class="item" v-for="item in lists">
+        <div class="right floated">
+          {{ item.created_at | moment }}
+        </div>
+        <i class="big middle aligned icon" v-bind:class="item.src_provider"></i>
+        <div class="content">
+          <a class="header js-external-link" :href="`https://dashboard.daocloud.io/build-flows/${item.id}`">{{item.name}}</a>
+          <div class="description">
+             <label class="status" v-bind:class="item.status">{{$t(`buildStatus.${item.status}`)}}</label>
+          </div>
         </div>
       </div>
     </div>

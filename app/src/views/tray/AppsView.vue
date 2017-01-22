@@ -1,16 +1,18 @@
 <template>
-  <div class="ui relaxed divided list">
-    <div class="ui active inverted dimmer" v-if="lists === null || lists.length === 0">
-      <div class="ui medium text loader"></div>
-    </div>
-    <div class="item" v-for="item in lists">
-      <div class="right floated">
-        {{ item.last_operated_at | moment }}
+  <div>
+    <div class="ui relaxed divided list">
+      <div class="ui active inverted dimmer" v-if="lists === null || lists.length === 0">
+        <div class="ui medium text loader"></div>
       </div>
-      <div class="content">
-        <a class="header js-external-link" :href="`https://dashboard.daocloud.io/runtime-app/${item.id}`">{{item.name}}</a>
-        <div class="description">
-          <label class="status" v-bind:class="item.state">{{$t(`appStatus.${item.state}`)}}</label>
+      <div class="item" v-for="item in lists">
+        <div class="right floated">
+          {{ item.last_operated_at | moment }}
+        </div>
+        <div class="content">
+          <a class="header js-external-link" :href="`https://dashboard.daocloud.io/runtime-app/${item.id}`">{{item.name}}</a>
+          <div class="description">
+            <label class="status" v-bind:class="item.state">{{$t(`appStatus.${item.state}`)}}</label>
+          </div>
         </div>
       </div>
     </div>

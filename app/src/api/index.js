@@ -7,7 +7,10 @@ Vue.use(VueResource);
 Vue.http.options.root = process.env.API_URL;
 Vue.http.interceptors.push((request, next) => {
   const auth = store.state.account.auth;
-  if (auth.check()) {
+
+  if (!request.url.startsWith('http://') &&
+      !request.url.startsWith('https://') &&
+    auth.check()) {
     const accessToken = auth.access_token;
     Vue.http.headers.common.Authorization = `token ${accessToken}`;
   } else {
