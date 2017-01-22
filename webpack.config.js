@@ -5,6 +5,7 @@ const pkg = require('./app/package.json')
 const settings = require('./config.js')
 const webpack = require('webpack')
 
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -59,6 +60,10 @@ let config = {
     ]
   },
   plugins: [
+    new CopyWebpackPlugin([
+      { from: './app/vendor', to: 'vendor' },
+      { from: './app/helpers', to: 'helpers' }
+    ]),
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',

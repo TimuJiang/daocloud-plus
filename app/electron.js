@@ -19,12 +19,14 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const app = menubar({
+  icon: path.join(__dirname, '/icons/ic_menubar.png'),
   index: config.url + '/#/tray',
   width: 400,
   height: 300,
   preloadWindow: true,
   hasShadow: false,
   transparent: true,
+  showDockIcon: true,
   webPreferences: {
     webSecurity: false
   }
