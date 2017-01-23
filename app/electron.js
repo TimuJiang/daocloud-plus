@@ -17,11 +17,14 @@ if (process.env.NODE_ENV === 'development') {
   config.url = `file://${__dirname}/dist/index.html`
 }
 
+process.env.URL = config.url;
+process.env.YUNBA_APP_KEY = '570fbf534407a3cd028adc5a';
+
 const app = menubar({
   icon: path.join(__dirname, '/icons/ic_menubar.png'),
   index: config.url + '/#/tray',
   width: 400,
-  height: 300,
+  height: 320,
   preloadWindow: true,
   hasShadow: false,
   transparent: true,
@@ -36,8 +39,8 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    width: 400,
+    height: 320,
     webPreferences: {
       webSecurity: false
     }

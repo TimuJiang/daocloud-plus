@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <router-link to="/tray">Tray</router-link>
+  <div class="ui container">
+    <h2 class="ui center aligned icon header">
+      <router-link to="/tray">DaoCloud+</router-link>
+    </h2>
   </div>
 </template>
 

@@ -6,6 +6,9 @@ import { sync } from 'vuex-router-sync';
 import router from './router';
 import store from './store';
 
+import '../vendor/semantic-ui-css/dist/semantic.css';
+import '../vendor/icomoon/style.css';
+
 import App from './App';
 
 // ready translated locales

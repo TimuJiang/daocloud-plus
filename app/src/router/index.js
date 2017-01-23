@@ -36,6 +36,10 @@ const router = new VueRouter({
         },
       ],
     },
+    {
+      path: '/account/settings',
+      component: require('../views/account/SettingsView'),
+    },
   ],
 });
 

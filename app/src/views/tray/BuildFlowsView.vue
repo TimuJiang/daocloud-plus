@@ -1,8 +1,13 @@
 <template>
   <div>
     <div class="ui relaxed divided list">
-      <div class="ui active inverted dimmer" v-if="lists === null || lists.length === 0">
+      <div class="ui active inverted dimmer" v-if="error === null && (lists === null || lists.length === 0)">
         <div class="ui medium text loader"></div>
+      </div>
+      <div class="ui basic segment" v-if="error">
+        <label>
+          {{error.code}} : {{error.message}}
+        </label>
       </div>
       <div class="item" v-for="item in lists">
         <div class="right floated">
@@ -27,10 +32,16 @@ export default {
   components: {
   },
   computed: mapState({
+    error: state => state.daocloudplus.buildFlows.error,
     lists: state => state.daocloudplus.buildFlows.lists,
   }),
+  methods: {
+    retry() {
+      this.$store.dispatch('getBuildFlowLists');
+    },
+  },
   mounted() {
-    this.$store.dispatch('getBuildFlowLists');
+    this.retry();
   },
 };
 </script>

@@ -27,7 +27,7 @@
         <div class="column">
         </div>
         <div class="left floated right aligned column">
-          <a v-on:click="preferences"><i class="large setting icon"></i></a>
+          <a v-on:click="clickSettings"><i class="large setting icon"></i></a>
         </div>
       </div>
     </footer>
@@ -38,13 +38,12 @@
 import electron from 'electron';
 
 const JSON = global.JSON;
+const Yunba = global.Yunba;
 const version = require('../../package.json').version;
-// const app = electron.app;
 const shell = electron.shell;
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
 const Menu = remote.Menu;
-// const MenuItem = remote.MenuItem;
 
 export default {
   components: {
@@ -63,7 +62,7 @@ export default {
         }
       });
     },
-    preferences() {
+    clickSettings() {
       // 首选项
       // 意见反馈
       // --------
@@ -79,7 +78,7 @@ export default {
               resizable: false,
               alwaysOnTop: true,
             });
-            window.loadURL('http://account.daocloud.io/signin');
+            window.loadURL(`${process.env.URL}/#/account/settings`);
             window.show();
 
             window.webContents.openDevTools();
@@ -107,6 +106,32 @@ export default {
   },
   mounted() {
     this.checkNewVersion();
+    const yunba = new Yunba({
+      appkey: process.env.YUNBA_APP_KEY,
+      server: 'http://sock.yunba.io',
+      port: '3000',
+    });
+    const yunbaAlias = localStorage.getItem('auth.alias');
+    // 初始化云巴SDK
+    yunba.init((success) => {
+      if (success) {
+        // 连接服务器
+        yunba.connect((success, msg) => {
+          if (success) {
+            // 设置别名，成功后服务端的消息将会在set_message_cb方法接收
+            yunba.set_alias({ alias: yunbaAlias }, (data) => {
+              if (data.success) {
+                console.log(`别名：${yunbaAlias} 设置成功`);
+              } else {
+                console.log(data.msg);
+              }
+            });
+          } else {
+            console.log(msg);
+          }
+        });
+      }
+    });
   },
 };
 </script>
