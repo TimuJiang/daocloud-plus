@@ -20,7 +20,7 @@
       <div class="ui equal width padded grid" onselectstart="return false;">
         <div class="eight wide column">
           <div class="ui secondary menu">
-            <router-link to="/tray/build-flows" class="item">代码构建</router-link>
+            <router-link to="/tray/build-flows" class="item">项目</router-link>
             <router-link to="/tray/apps" class="item">应用列表</router-link>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default {
               resizable: false,
               alwaysOnTop: true,
             });
-            window.loadURL('/#/preferences');
+            window.loadURL('http://account.daocloud.io/signin');
             window.show();
 
             window.webContents.openDevTools();
@@ -157,8 +157,8 @@ header > .ui.grid > .column:not(.row) {
   padding: 0em;
 }
 header > .ui.grid > .column > .title {
-  height: 35px;
-  line-height: 35px;
+  height: 40px;
+  line-height: 40px;
   font-size: 12px;
 }
 footer {

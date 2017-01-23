@@ -4,7 +4,7 @@ import store from '../store';
 
 Vue.use(VueResource);
 
-Vue.http.options.root = process.env.API_URL;
+Vue.http.options.root = 'https://openapi.daocloud.io';
 Vue.http.interceptors.push((request, next) => {
   const auth = store.state.account.auth;
 

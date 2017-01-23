@@ -1,6 +1,5 @@
 'use strict'
 
-require('dotenv').config();
 const electron = require('electron')
 const path = require('path')
 // const app = electron.app
