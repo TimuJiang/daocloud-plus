@@ -26,6 +26,7 @@ export default {
         code: response.status,
         message: response.statusText,
       });
+      Vue.set(state.buildFlows, 'lists', []);
     },
     GET_APP_LISTS_SUCCESS: (state, { app }) => {
       Vue.set(state.apps, 'error', null);
@@ -36,6 +37,7 @@ export default {
         code: response.status,
         message: response.statusText,
       });
+      Vue.set(state.apps, 'lists', []);
     },
   },
   actions: {

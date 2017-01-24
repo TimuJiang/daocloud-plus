@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import store from '../store';
 
 Vue.use(VueResource);
 
+const localStorage = global.localStorage;
+
 Vue.http.options.root = 'https://openapi.daocloud.io';
 Vue.http.interceptors.push((request, next) => {
-  const auth = store.state.account.auth;
+  const accessToken = localStorage.getItem('auth.access_token');
 
   if (!request.url.startsWith('http://') &&
       !request.url.startsWith('https://') &&
-    auth.check()) {
-    const accessToken = auth.access_token;
+      accessToken) {
     Vue.http.headers.common.Authorization = `token ${accessToken}`;
   } else {
     delete Vue.http.headers.common.Authorization;

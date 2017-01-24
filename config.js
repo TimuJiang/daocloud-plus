@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const appManifest = require('./app/package.json')
 
 let config = {
   // Name of electron app
@@ -18,10 +19,12 @@ let config = {
   // Docs: https://simulatedgreg.gitbooks.io/electron-vue/content/docs/building_your_app.html
   building: {
     arch: 'x64',
-    asar: true,
+    asar: false,
     dir: path.join(__dirname, 'app'),
     icon: path.join(__dirname, 'app/icons/icon'),
-    ignore: /\b(node_modules|src|index\.ejs|icons)\b/,
+    ignore: Object.keys((appManifest.devDependencies || {})).map(function (name) {
+      return '/node_modules/' + name + '($|/)'
+    }),
     out: path.join(__dirname, 'builds'),
     overwrite: true,
     platform: process.env.PLATFORM_TARGET || 'all'

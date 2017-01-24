@@ -4,9 +4,11 @@
   "description": "An electron-vue project",
   "main": "electron.js",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "menubar": "^5.2.0",
-    "shortid": "^2.2.6",
-    "socket.io-client": "^1.7.2",
+    "shortid": "^2.2.6"
+  },
+  "devDependencies": {
     "vue": "^2.0.1",
     "vue-electron": "^1.0.0",
     "vue-i18n": "^4.10.0",
@@ -15,6 +17,5 @@
     "vuex": "^2.0.0",
     "vuex-router-sync": "^4.1.0"
   },
-  "devDependencies": {},
   "author": "JianyingLi <lijy91@foxmail.com>"
 }

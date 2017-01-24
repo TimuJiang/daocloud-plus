@@ -1,5 +1,6 @@
 'use strict'
 
+require('dotenv').config();
 const electron = require('electron')
 const path = require('path')
 // const app = electron.app
@@ -11,20 +12,19 @@ let config = {}
 
 if (process.env.NODE_ENV === 'development') {
   config = require('../config')
-  config.url = `http://localhost:${config.port}`
+  config.url = `http://localhost:${config.port}?go=`
 } else {
   config.devtron = false
-  config.url = `file://${__dirname}/dist/index.html`
+  config.url = `file://${__dirname}/dist/index.html?go=`
 }
 
 process.env.URL = config.url;
-process.env.YUNBA_APP_KEY = '570fbf534407a3cd028adc5a';
 
-const app = menubar({
+const mb = menubar({
   icon: path.join(__dirname, '/icons/ic_menubar.png'),
   index: config.url + '/#/tray',
   width: 400,
-  height: 320,
+  height: 300,
   preloadWindow: true,
   hasShadow: false,
   transparent: true,
@@ -34,13 +34,21 @@ const app = menubar({
   }
 });
 
+const app = mb.app;
+
 function createWindow () {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
     width: 400,
-    height: 320,
+    height: 324,
+    center: true,
+    // alwaysOnTop: true,
+    // showDockIcon: true,
+    // titleBarStyle: 'hidden',
+    // minimizable: false,
+    // maximizable: false,
     webPreferences: {
       webSecurity: false
     }
@@ -66,17 +74,15 @@ function createWindow () {
 }
 
 app.on('ready', () => {
-  createWindow()
+  // createWindow()
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  app.quit()
 })
 
 app.on('activate', () => {
   if (mainWindow === null) {
-    createWindow()
+    // createWindow()
   }
 })

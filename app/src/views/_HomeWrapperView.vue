@@ -12,4 +12,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#wrapper {
+  height: 100%;
+}
 </style>

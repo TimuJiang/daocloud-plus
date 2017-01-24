@@ -9,7 +9,7 @@
           <h4 class="title" style="cursor:default;">DaoCloud+</h4>
         </div>
         <div class="left floated right aligned column">
-          <a v-if="hasNewVersion" class="js-external-link has-new-version" href="https://github.com/lijy91/daocloud-plus/blob/master/CHANGELOGS.md"><i class="star icon"></i>新版本</a>
+          <a v-if="hasNewVersion" class="js-external-link has-new-version" href="https://github.com/lijy91/daocloud-plus/releases"><i class="star icon"></i>新版本</a>
         </div>
       </div>
     </header>
@@ -38,7 +38,6 @@
 import electron from 'electron';
 
 const JSON = global.JSON;
-const Yunba = global.Yunba;
 const version = require('../../package.json').version;
 const shell = electron.shell;
 const remote = electron.remote;
@@ -81,7 +80,18 @@ export default {
             window.loadURL(`${process.env.URL}/#/account/settings`);
             window.show();
 
-            window.webContents.openDevTools();
+            if (process.env.NODE_ENV === 'development') {
+              window.webContents.openDevTools();
+            }
+          },
+        },
+        {
+          type: 'separator',
+        },
+        {
+          label: '获取源码',
+          click: () => {
+            shell.openExternal('https://github.com/lijy91/daocloud-plus');
           },
         },
         {
@@ -106,32 +116,32 @@ export default {
   },
   mounted() {
     this.checkNewVersion();
-    const yunba = new Yunba({
-      appkey: process.env.YUNBA_APP_KEY,
-      server: 'http://sock.yunba.io',
-      port: '3000',
-    });
-    const yunbaAlias = localStorage.getItem('auth.alias');
-    // 初始化云巴SDK
-    yunba.init((success) => {
-      if (success) {
-        // 连接服务器
-        yunba.connect((success, msg) => {
-          if (success) {
-            // 设置别名，成功后服务端的消息将会在set_message_cb方法接收
-            yunba.set_alias({ alias: yunbaAlias }, (data) => {
-              if (data.success) {
-                console.log(`别名：${yunbaAlias} 设置成功`);
-              } else {
-                console.log(data.msg);
-              }
-            });
-          } else {
-            console.log(msg);
-          }
-        });
-      }
-    });
+    // const yunba = new Yunba({
+    //   appkey: process.env.YUNBA_APP_KEY,
+    //   server: 'http://sock.yunba.io',
+    //   port: '3000',
+    // });
+    // const yunbaAlias = localStorage.getItem('auth.alias');
+    // // 初始化云巴SDK
+    // yunba.init((success) => {
+    //   if (success) {
+    //     // 连接服务器
+    //     yunba.connect((success, msg) => {
+    //       if (success) {
+    //         // 设置别名，成功后服务端的消息将会在set_message_cb方法接收
+    //         yunba.set_alias({ alias: yunbaAlias }, (data) => {
+    //           if (data.success) {
+    //             console.log(`别名：${yunbaAlias} 设置成功`);
+    //           } else {
+    //             console.log(data.msg);
+    //           }
+    //         });
+    //       } else {
+    //         console.log(msg);
+    //       }
+    //     });
+    //   }
+    // });
   },
 };
 </script>
