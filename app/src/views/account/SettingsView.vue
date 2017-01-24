@@ -1,7 +1,6 @@
 <template>
   <div class="ui container">
-    <h2 class="ui header">设置</h2>
-    <div class="ui divider"></div>
+    <h1 class="ui header">设置</h1>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="required field">
         <label>API Token</label>
@@ -59,8 +58,13 @@ export default {
 };
 </script>
 
-<style lnag="scss" scoped>
+<style lang="scss" scoped>
 .container {
-  padding-top: 16px;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  .header {
+    margin-bottom: 30px;
+  }
 }
 </style>

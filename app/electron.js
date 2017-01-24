@@ -28,7 +28,7 @@ const mb = menubar({
   preloadWindow: true,
   hasShadow: false,
   transparent: true,
-  showDockIcon: true,
+  showDockIcon: false,
   webPreferences: {
     webSecurity: false
   }

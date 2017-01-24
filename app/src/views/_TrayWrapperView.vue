@@ -71,11 +71,14 @@ export default {
           label: '首选项',
           click() {
             const window = new BrowserWindow({
-              width: 520,
-              height: 360,
+              width: 400,
+              height: 520,
               show: false,
               resizable: false,
               alwaysOnTop: true,
+              titleBarStyle: 'hidden',
+              minimizable: false,
+              maximizable: false,
             });
             window.loadURL(`${process.env.URL}/#/account/settings`);
             window.show();

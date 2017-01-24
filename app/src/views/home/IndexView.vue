@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style lnag="scss" scoped>
+<style lang="scss" scoped>
 .container {
   background-color: #3d444f;
   padding-top: 100px;
