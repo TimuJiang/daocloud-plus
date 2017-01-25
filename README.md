@@ -1,54 +1,80 @@
-daocloud-plus
-==============
-
-[![Join the chat at https://gitter.im/lijy91/daocloud-plus](https://badges.gitter.im/lijy91/daocloud-plus.svg)](https://gitter.im/lijy91/daocloud-plus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# daocloud-plus
 
 [![Build Status](https://api.travis-ci.org/lijy91/daocloud-plus.svg?branch=master)](https://travis-ci.org/lijy91/daocloud-plus)
 
-DaoCloud+ 项目是一个 [DaoCloud](https://daocloud.io) 迷你控制台托盘程序，用于更方便的查看控制台里 **代码构建** 及 **应用管理** 的相应信息，并且通过 ***[云巴](https://yunba.io/)*** + ***[Webhook](http://docs.daocloud.io/api/#webhook)*** 实现了消息推送功能，推送服务实现的项目地址： [daocloud-plus-notifier](https://github.com/lijy91/daocloud-plus-notifier)，主要使用了 [Electron](https://electron.atom.io) 和 [Vue.js](https://vuejs.org) 两个框架，并且使用了优秀的 [electron-boilerplate](https://github.com/szwacz/electron-boilerplate) 脚手架项目用于构建项目。
+> 一个迷你的 [DaoCloud](https://daocloud.io) 托盘控制台程序，基于
+ [electron-vue](https://github.com/SimulatedGREG/electron-vue) 脚手架创建。
 
-## 下载(0.1.1-alpha)
-- [OSX](https://github.com/lijy91/daocloud-plus/releases/download/0.1.1-alpha/daocloud-plus_0.1.1-osx.zip)
-- ~~[Windows](http://jianying.li)~~
-- ~~[Linux](http://jianying.li)~~
+## 截图
 
-## 如何编译
+![](https://oeolgl6y5.qnssl.com/article/rJUVHZHDl/Hku8SZrve.png?imageView2/2/w/480/h/480)
 
-### 克隆到本地
+## 项目依赖
+- [electron](https://github.com/electron/electron)
+- [vue.js](https://github.com/vuejs/vue)
+- [vuex](https://github.com/vuejs/vuex)
+- [vue-router](https://github.com/vuejs/vue-router)
+- [vue-resource](https://github.com/pagekit/vue-resource)
+- [dotenv](https://github.com/motdotla/dotenv)
+- [menubar](https://github.com/maxogden/menubar)
+- [shortid](https://github.com/dylang/shortid)
+
+## 快速开始
+
+### 克隆源码
+
 ```
 $ git clone https://github.com/lijy91/daocloud-plus.git
 $ cd daocloud-plus
 ```
 
-### 安装依赖库
+### 安装依赖
+
 ```
 $ npm install
 ```
 
-### 创建 `.env` 文件
+### 配置环境变量
+
+1、 创建 `.env` 环境变量配置文件
+
 ```
-$ cp .env.example .env
+$ cp app/.env.example app/.env
 ```
 
-修改根目录 `.env` 配置，修改云巴相关配置
+2、 编辑 `.env` 文件，修改相关配置
+
 ```
 YUNBA_APP_KEY=<Your AppKey>
 YUNBA_SECRET_KEY=<Your Secret Key>
 ```
 
-### 运行
-```
-$ npm start
-```
 
-## 如何打包
-运行下面的脚本即会打包相应平台的安装包
+## Build Setup
 
-```
-$ npm run release
-```
+``` bash
+# install dependencies
+npm install
 
-## License
+# serve with hot reload at localhost:9080
+npm run dev
+
+# build electron app for production
+npm run build
+
+# lint all JS/Vue component files in `app/src`
+npm run lint
+
+# run webpack in production
+npm run pack
+```
+More information can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/docs/npm_scripts.html).
+
+---
+
+This project was generated from [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about this project can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+
+## 许可证
 
     Copyright (C) 2016 JianyingLi <lijy91@foxmail.com>
 
