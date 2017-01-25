@@ -43,12 +43,12 @@ import electron from 'electron';
 import io from 'socket.io-client';
 
 const JSON = global.JSON;
+const Notification = global.Notification;
 const version = require('../../package.json').version;
 const shell = electron.shell;
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
 const Menu = remote.Menu;
-const ipcRenderer = electron.ipcRenderer;
 
 export default {
   components: {
@@ -163,7 +163,10 @@ export default {
     });
     // 消息接收回调
     socket.on('message', (data) => {
-      ipcRenderer.send('asynchronous-message', data.msg);
+      const notification = new Notification('DaoCloud+', {
+        body: data.msg,
+      });
+      notification.onclick = () => {};
     });
     // 断开连接回调
     socket.on('disconnect', () => {
