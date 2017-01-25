@@ -4,9 +4,13 @@
       <div class="ui active inverted dimmer" v-if="error === null && (lists === null || lists.length === 0)">
         <div class="ui medium text loader"></div>
       </div>
-      <div class="ui basic segment" v-if="error">
+      <div class="ui basic segment" v-if="error && error.code !== 0">
         <label>
           {{error.code}} : {{error.message}}
+        </label>
+        <br>
+        <label>
+          <a v-on:click="clickSettings">配置API Token</i></a> 并 <a v-on:click="retry">重试</i></a>
         </label>
       </div>
       <div class="item" v-for="item in lists">
@@ -27,6 +31,9 @@
 
 <script>
 import { mapState } from 'vuex';
+import electron from 'electron';
+const remote = electron.remote;
+const BrowserWindow = remote.BrowserWindow;
 
 export default {
   components: {
@@ -38,6 +45,24 @@ export default {
   methods: {
     retry() {
       this.$store.dispatch('getBuildFlowLists');
+    },
+    clickSettings() {
+      const window = new BrowserWindow({
+        width: 400,
+        height: 520,
+        show: false,
+        resizable: false,
+        alwaysOnTop: true,
+        titleBarStyle: 'hidden',
+        minimizable: false,
+        maximizable: false,
+      });
+      window.loadURL(`${process.env.URL}/#/account/settings`);
+      window.show();
+
+      if (process.env.NODE_ENV === 'development') {
+        window.webContents.openDevTools();
+      }
     },
   },
   mounted() {

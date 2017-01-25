@@ -4,7 +4,7 @@
       <div class="ui active inverted dimmer" v-if="error === null && (lists === null || lists.length === 0)">
         <div class="ui medium text loader"></div>
       </div>
-      <div class="ui basic segment" v-if="error">
+      <div class="ui basic segment" v-if="error && error.code !== 0">
         <label>
           {{error.code}} : {{error.message}}
         </label>

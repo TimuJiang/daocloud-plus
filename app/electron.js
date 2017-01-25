@@ -6,6 +6,8 @@ const path = require('path')
 // const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const menubar = require('menubar')
+const notifier = require('node-notifier');
+const ipcMain = electron.ipcMain
 
 let mainWindow
 let config = {}
@@ -19,6 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 process.env.URL = config.url;
+process.env.YUNBA_APP_KEY = '570fbf534407a3cd028adc5a';
 
 const mb = menubar({
   icon: path.join(__dirname, '/icons/ic_menubar.png'),
@@ -73,8 +76,20 @@ function createWindow () {
   console.log('mainWindow opened')
 }
 
+ipcMain.on('asynchronous-message', (event, arg) => {
+  notifier.notify({
+    icon: path.join(__dirname, '/icons/icon.icns'),
+    title: 'DaoCloud+',
+    message: arg,
+    sound: true,
+  });
+})
+
 app.on('ready', () => {
   // createWindow()
+  if (process.env.NODE_ENV === 'development') {
+    mb.window.webContents.openDevTools()
+  }
 })
 
 app.on('window-all-closed', () => {

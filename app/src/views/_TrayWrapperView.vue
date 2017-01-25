@@ -9,6 +9,8 @@
           <h4 class="title" style="cursor:default;">DaoCloud+</h4>
         </div>
         <div class="left floated right aligned column">
+          <a v-if="socketConnected" class="ui green label">在线</a>
+          <a v-if="!socketConnected" class="ui grey label">离线</a>
           <a v-if="hasNewVersion" class="js-external-link has-new-version" href="https://github.com/lijy91/daocloud-plus/releases"><i class="star icon"></i>新版本</a>
         </div>
       </div>
@@ -35,7 +37,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import shortid from 'shortid';
 import electron from 'electron';
+import io from 'socket.io-client';
 
 const JSON = global.JSON;
 const version = require('../../package.json').version;
@@ -43,6 +48,7 @@ const shell = electron.shell;
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
 const Menu = remote.Menu;
+const ipcRenderer = electron.ipcRenderer;
 
 export default {
   components: {
@@ -50,8 +56,13 @@ export default {
   data() {
     return {
       hasNewVersion: false,
+      socketConnected: false,
+      socketError: null,
     };
   },
+  computed: mapState({
+    auth: state => state.account.auth,
+  }),
   methods: {
     checkNewVersion() {
       this.$http.get('https://raw.githubusercontent.com/lijy91/daocloud-plus/master/app/package.json').then(response => {
@@ -119,32 +130,49 @@ export default {
   },
   mounted() {
     this.checkNewVersion();
-    // const yunba = new Yunba({
-    //   appkey: process.env.YUNBA_APP_KEY,
-    //   server: 'http://sock.yunba.io',
-    //   port: '3000',
-    // });
-    // const yunbaAlias = localStorage.getItem('auth.alias');
-    // // 初始化云巴SDK
-    // yunba.init((success) => {
-    //   if (success) {
-    //     // 连接服务器
-    //     yunba.connect((success, msg) => {
-    //       if (success) {
-    //         // 设置别名，成功后服务端的消息将会在set_message_cb方法接收
-    //         yunba.set_alias({ alias: yunbaAlias }, (data) => {
-    //           if (data.success) {
-    //             console.log(`别名：${yunbaAlias} 设置成功`);
-    //           } else {
-    //             console.log(data.msg);
-    //           }
-    //         });
-    //       } else {
-    //         console.log(msg);
-    //       }
-    //     });
-    //   }
-    // });
+    let yunbaAlias = localStorage.getItem('auth.alias');
+    if (!yunbaAlias) {
+      yunbaAlias = shortid.generate();
+      localStorage.setItem('auth.alias', yunbaAlias);
+    }
+    const socket = io.connect('http://sock.yunba.io:3000', { forceNew: true, secure: true });
+    // 初始化回调
+    socket.on('connect', () => {
+      // 进行确认身份
+      socket.emit('connect_v2', {
+        appkey: process.env.YUNBA_APP_KEY,
+        customid: yunbaAlias,
+      });
+    });
+    // 确认身份回调
+    socket.on('connack', (data) => {
+      if (!data.success) {
+        return;
+      }
+      this.socketConnected = true;
+      // 进行设置别名
+      socket.emit('set_alias', {
+        alias: yunbaAlias,
+      });
+    });
+    // 设置别名回调
+    socket.on('set_alias_ack', (data) => {
+      if (!data.success) {
+        return;
+      }
+    });
+    // 消息接收回调
+    socket.on('message', (data) => {
+      ipcRenderer.send('asynchronous-message', data.msg);
+    });
+    // 断开连接回调
+    socket.on('disconnect', () => {
+      this.socketConnected = false;
+    });
+    // 错误
+    socket.on('error', (error) => {
+      this.socketError = error;
+    });
   },
 };
 </script>

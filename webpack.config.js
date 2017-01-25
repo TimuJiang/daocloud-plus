@@ -81,7 +81,7 @@ let config = {
       'components': path.join(__dirname, 'app/src/components'),
       'src': path.join(__dirname, 'app/src')
     },
-    extensions: ['', '.js', '.vue', '.json', '.css'],
+    extensions: ['', '.js', '.vue', '.json', '.css', '.ttf'],
     fallback: [path.join(__dirname, 'app/node_modules')]
   },
   resolveLoader: {
