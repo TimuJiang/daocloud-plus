@@ -52,7 +52,7 @@ YUNBA_SECRET_KEY=<Your Secret Key>
 ### Mas包签名
 ```
 $ find . -type f -exec chmod 0644 {} \;
-$ electron-osx-sign path/to/my.app --provisioning-profile=my.provisionprofile
+$ electron-osx-sign path/to/my.app --provisioning-profile=path/to/my.provisionprofile --entitlements=path/to/my.entitlements --entitlements-inherit=path/to/my.entitlements
 $ electron-osx-flat path/to/my.app
 ```
 
