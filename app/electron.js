@@ -6,8 +6,6 @@ const path = require('path')
 // const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const menubar = require('menubar')
-const notifier = require('node-notifier');
-const ipcMain = electron.ipcMain
 
 let mainWindow
 let config = {}
@@ -75,15 +73,6 @@ function createWindow () {
 
   console.log('mainWindow opened')
 }
-
-ipcMain.on('asynchronous-message', (event, arg) => {
-  notifier.notify({
-    icon: path.join(__dirname, '/icons/icon.icns'),
-    title: 'DaoCloud+',
-    message: arg,
-    sound: true,
-  });
-})
 
 app.on('ready', () => {
   // createWindow()

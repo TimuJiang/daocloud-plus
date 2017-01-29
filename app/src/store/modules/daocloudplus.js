@@ -22,10 +22,13 @@ export default {
       Vue.set(state.buildFlows, 'lists', build_flows);
     },
     GET_BUILD_FLOW_LISTS_ERROR: (state, response) => {
-      Vue.set(state.buildFlows, 'error', {
-        code: response.status,
-        message: response.statusText,
-      });
+      let code = response.status;
+      let message = response.statusText;
+      if (response.ok === false && code === 0) {
+        code = -1;
+        message = '无网络连接';
+      }
+      Vue.set(state.buildFlows, 'error', { code, message });
       Vue.set(state.buildFlows, 'lists', []);
     },
     GET_APP_LISTS_SUCCESS: (state, { app }) => {
@@ -33,10 +36,13 @@ export default {
       Vue.set(state.apps, 'lists', app);
     },
     GET_APP_LISTS_ERROR: (state, response) => {
-      Vue.set(state.apps, 'error', {
-        code: response.status,
-        message: response.statusText,
-      });
+      let code = response.status;
+      let message = response.statusText;
+      if (response.ok === false && code === 0) {
+        code = -1;
+        message = '无网络连接';
+      }
+      Vue.set(state.apps, 'error', { code, message });
       Vue.set(state.apps, 'lists', []);
     },
   },

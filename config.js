@@ -27,7 +27,8 @@ let config = {
     }),
     out: path.join(__dirname, 'builds'),
     overwrite: true,
-    platform: process.env.PLATFORM_TARGET || 'all'
+    platform: process.env.PLATFORM_TARGET || 'all',
+    'app-bundle-id': 'me.thecode.daocloudplus'
   }
 }
 
