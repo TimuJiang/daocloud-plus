@@ -44,7 +44,7 @@ import io from 'socket.io-client';
 
 const JSON = global.JSON;
 const Notification = global.Notification;
-const version = require('../../package.json').version;
+const version = require('../../../../../package.json').version;
 const shell = electron.shell;
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;

@@ -2,7 +2,7 @@
   "name": "daocloud-plus",
   "version": "1.0.1",
   "description": "An electron-vue project",
-  "main": "electron.js",
+  "main": "./dist/main.js",
   "dependencies": {
     "dotenv": "^4.0.0",
     "menubar": "^5.2.0",
