@@ -1,10 +1,11 @@
 'use strict'
 
-require('dotenv').config();
+import dotenv from 'dotenv';
 import path from 'path';
 import { BrowserWindow } from 'electron';
+import menubar from 'menubar';
 
-const menubar = require('menubar');
+dotenv.config({ path: '../../.env' });
 
 let mainWindow;
 const winURL = process.env.NODE_ENV === 'development'
@@ -35,8 +36,17 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    width: 400,
+    height: 324,
+    center: true,
+    // alwaysOnTop: true,
+    // showDockIcon: true,
+    // titleBarStyle: 'hidden',
+    // minimizable: false,
+    // maximizable: false,
+    webPreferences: {
+      webSecurity: false,
+    },
   });
 
   mainWindow.loadURL(winURL);

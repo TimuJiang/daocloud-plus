@@ -6,11 +6,11 @@
           <a class="js-external-link" href="https://www.daocloud.io"><i class="large world icon"></i></a>
         </div>
         <div class="eight wide center aligned column">
-          <h4 class="title" style="cursor:default;">DaoCloud+</h4>
+          <h4 class="title" style="cursor: default;">DaoCloud+</h4>
         </div>
         <div class="left floated right aligned column">
-          <a v-if="socketConnected" class="ui green label">在线</a>
-          <a v-if="!socketConnected" class="ui grey label">离线</a>
+          <a v-if="!hasNewVersion && socketConnected" class="ui green label">在线</a>
+          <a v-if="!hasNewVersion && !socketConnected" class="ui grey label">离线</a>
           <a v-if="hasNewVersion" class="js-external-link has-new-version" href="https://github.com/lijy91/daocloud-plus/releases"><i class="star icon"></i>新版本</a>
         </div>
       </div>
@@ -44,7 +44,7 @@ import io from 'socket.io-client';
 
 const JSON = global.JSON;
 const Notification = global.Notification;
-const version = require('../../../../../package.json').version;
+const version = require('../../../package.json').version;
 const shell = electron.shell;
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
